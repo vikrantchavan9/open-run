@@ -1,0 +1,38 @@
+<div class="relative w-full h-[100dvh] max-w-[440px] mx-auto bg-strava-bg flex flex-col justify-between overflow-hidden">
+  <!-- Scrollable Profile Content -->
+  <main
+    class="flex-1 overflow-y-auto overflow-x-hidden no-scrollbar pb-[calc(4.5rem+env(safe-area-inset-bottom,0px))]"
+    role="region"
+    aria-label="Profile Details"
+  >
+    <!-- Profile Info & Action Buttons -->
+    <app-profile-header [user]="user()" />
+
+    <!-- Sub-navigation Tabs (Progress, Activities, Gallery, More) -->
+    <app-profile-nav-tabs
+      [activeTab]="activeSubTab()"
+      (tabChange)="onSubTabChanged($event)"
+    />
+
+    <!-- Active Tab Content: Progress Section -->
+    @if (activeSubTab() === 'progress') {
+      <!-- Progress Summary & 12-Week Mileage Chart -->
+      <app-progress-card [data]="progressData()" />
+
+      <!-- Streak Preview Card -->
+      <app-streak-preview-card [data]="streakData()" />
+    } @else {
+      <!-- Placeholder for other tabs -->
+      <div class="p-8 text-center text-strava-text-secondary text-sm">
+        {{ activeSubTab() | titlecase }} content coming soon.
+      </div>
+    }
+  </main>
+
+  <!-- Fixed Bottom Navigation (With 'You' active) -->
+  <app-bottom-nav
+    [tabs]="navTabs()"
+    [activeTab]="activeNavTab()"
+    (tabChange)="onNavTabChanged($event)"
+  />
+</div>

@@ -1,1 +1,24 @@
-<p>dashboard-page works!</p>
+<div class="relative w-full h-[100dvh] max-w-[440px] mx-auto bg-strava-bg flex flex-col justify-between overflow-hidden">
+  <!-- Top App Header -->
+  <app-dashboard-header />
+
+  <!-- Scrollable Feed Content -->
+  <main
+    class="flex-1 overflow-y-auto overflow-x-hidden no-scrollbar pb-[calc(4.5rem+env(safe-area-inset-bottom,0px))]"
+    role="region"
+    aria-label="Feed Content"
+  >
+    <!-- Streak Widget Section -->
+    <app-streak-card [data]="streak()" />
+
+    <!-- Activity Feed Section -->
+    <app-activity-card [item]="activity()" />
+  </main>
+
+  <!-- Fixed Bottom Navigation -->
+  <app-bottom-nav
+    [tabs]="navTabs()"
+    [activeTab]="activeTab()"
+    (tabChange)="onTabChanged($event)"
+  />
+</div>
